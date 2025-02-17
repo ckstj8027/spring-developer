@@ -45,4 +45,4 @@ jobs:
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: ${{env.artifact}}  # artifact 경로 그대로 사용
-          # 재업
+          # 재업로드
