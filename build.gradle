@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'me.chan'
+version = '1.0'
+sourceCompatibility=17
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // 잘못된 의존성 수정
+    testImplementation 'org.springframework.security:spring-security-test'
+
+
+    // jwt 구현 의존성과 토큰 제공자를 추가한뒤에 리프레시 토큰 도메인과 토큰 필터를 구현하면 jwt 서비스 사용 준비 완료
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1' // 자바 jwt 라이브러리
+    implementation 'javax.xml.bind:jaxb-api:2.3.1' //xml 문서와 자바 객체 간 매핑 자동화
+
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+        // p315  CookieUtil 부분 직렬화부분 안되서 추가
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+    implementation 'com.mysql:mysql-connector-j'
+}
+
+test {
+    useJUnitPlatform()
+}
