@@ -30,19 +30,15 @@ jobs:
           utcOffset: "+09:00"
 
       - name: Set artifact
-        run: |
-          # 파일 경로에서 마지막 .jar 파일만 선택
-          artifact=$(ls ./build/libs/*.jar | sort -V | tail -n 1)
-          echo "artifact=$artifact" >> $GITHUB_ENV
+        run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
 
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: springboot-developer
-          environment_name: Springboot-developer-env-1
+          application_name: spring-boot-developer
+          environment_name: SpringBootDeveloper-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
-          deployment_package: ${{env.artifact}}  # artifact 경로 그대로 사용
-          # 재업로드
+          deployment_package: ./build/libs/${{env.artifact}}
